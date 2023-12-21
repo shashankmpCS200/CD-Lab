@@ -1,0 +1,76 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int checkIdentifier(string str){
+    if((str[0]>='0' && str[0]<='9') || str[0]=='-' || (str[0]>=32 && str[0]<=47) || (str[0]>=58 && str[0]<=64)){
+        return 0;
+    }
+    return 1;
+}
+int checkKeyword(string str){
+    vector<string> dict = {"int","string","for","while","if"};
+    return (find(dict.begin(),dict.end(),str)==dict.end())? 0:1;
+}
+int checkNumber(string str){
+   
+    for(int i=0;i<str.size();i++){
+        if(str[i]<'0' || str[i]>'9'){
+            return 0;
+        }
+    }
+    return 1;
+}
+int checkOperator(string str){
+    vector<string> dict = {"+","-","/","%","*"};
+    return (find(dict.begin(),dict.end(),str)==dict.end())? 0:1;
+}
+int checkPunctuation(string str){
+    vector<string> dict = {".",",","!","?"};
+    return (find(dict.begin(),dict.end(),str)==dict.end())? 0:1;
+}
+
+void lexicalAnalyzer(string str){
+    int id = checkIdentifier(str);
+    int key = checkKeyword(str);
+    int num = checkNumber(str);
+    int oper = checkOperator(str);
+    int punc = checkPunctuation(str);
+
+    if(id){
+        cout<<"The string is an identifier"<<endl;
+        return;
+    }
+    if(key){
+        cout<<"The string is an keyword"<<endl;
+         return;
+    }
+    if(num){
+        cout<<"The string is an number"<<endl;
+         return;
+    }
+    if(oper){
+        cout<<"The string is an operator"<<endl;
+         return;
+    }
+    if(punc){
+        cout<<"The string is an punctuation"<<endl;
+         return;
+    }
+}
+
+int main(){
+	string str;
+    int ch;
+	
+	while(1){
+        cout<<"Enter the string: "<<endl;
+	cin>>str;
+        lexicalAnalyzer(str);
+        cout<<"Do you want to continue "<<endl;
+        cin>>ch;
+        if(ch==0){
+            break;
+        }
+    }
+}
